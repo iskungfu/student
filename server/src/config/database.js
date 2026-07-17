@@ -1,24 +1,19 @@
-// 阿里云 MySQL 数据库配置
 const mysql = require('mysql2/promise');
 
-// 数据库连接池配置
 const pool = mysql.createPool({
-  host: '47.86.55.121',
-  port: 13306,
-  user: 'ai',
-  password: 'JSnbhcrZPEfBBir8',
-  database: 'ai',
+  host: process.env.DB_HOST || '47.86.55.121',
+  port: process.env.DB_PORT || 13306,
+  user: process.env.DB_USER || 'ai',
+  password: process.env.DB_PASSWORD || 'JSnbhcrZPEfBBir8',
+  database: process.env.DB_NAME || 'ai',
   waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-  enableKeepAlive: true,
-  keepAliveInitialDelay: 0
+  connectionLimit: 2,
+  queueLimit: 0
 });
 
-// 测试数据库连接
 pool.getConnection()
   .then(connection => {
-    console.log('成功连接到阿里云 MySQL 数据库');
+    console.log('成功连接到 MySQL 数据库');
     connection.release();
   })
   .catch(err => {
