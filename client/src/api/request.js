@@ -3,9 +3,11 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from '../store/user'
 
 const request = axios.create({
-  baseURL: '/api',
+ baseURL: 'https://student-production-6b9d.up.railway.app/api'
+,
   timeout: 10000
 })
+
 
 // 请求拦截器
 request.interceptors.request.use(
